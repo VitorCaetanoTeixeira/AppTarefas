@@ -36,41 +36,39 @@
 
 
   </head>
-  <body ng-app="starter">
+  <body ng-app="starter" ng-controller="mainController">
 
-    <ion-pane ng-controller="mainController">
-      <ion-header-bar class="bar-energized">
+    <ion-pane>
     
-        
-           <h1 class="title">Tarefas</h1>
-       
-        
-      </ion-header-bar>
+      <div class="bar bar-header">
+        <button class="button button-positive" ng-click="onCardAdd()">Adicionar</button>
+        <h1 class="title">Tarefas</h1>
+        <button class="button button-assertive" ng-click="onShowDelete()">Deletar</button>
+      </div>
 
-      <div class="row" style="padding-top:35px;">
-           <div  class="col">
-              <button class="button button-block button-positive">Add</button>
-           </div>
-            <div  class="col">
-              <button class="button button-block button-assertive">Deletar</button>
-            </div>
-        </div>
+      
       <ion-content style="padding-top:44px" >
 
         <div class="list card" >
-          <div ng-repeat="item in lista track by $index">
-          <div class="item item-avatar">
+          <div ng-repeat="item in lista track by $index" ng-hide="onHideCard(item)">
+
+          <div class="item">
           
            <div class="row">
+              <div  class="col">
+                <button class="button button-small button-assertive " ng-click="onRemoveCard(item)" ng-show="showDelete"><i class="ion-close-round"></i></button>
+              </div> 
              <div  class="col-75">
-          
+              
                 <h2>{{item.titulo}}</h2>
-                <p>{{item.subTitulo}}</p>
+                <p>{{item.data}}</p>
               </div>
+
               <div  class="col">
 
                 <button class="button button-small button-positive button-outline" ng-click="onMarkTask(item)"><i class="icon ion-checkmark" ng-show="item.finalizada"></i></button>
               </div>
+
             </div>  
           </div>
 
@@ -85,6 +83,19 @@
 
         </div>
       </ion-content>
+      <ion-footer-bar align-title="left" class="bar bar-calm">
+       
+
+        <h2 class="title">Exibir Tarefas Finalizadas</h1>
+        <div class="buttons" ng-click="doSomething()">
+          <label class="toggle">
+             <input type="checkbox" ng-model="showCard">
+             <div class="track">
+               <div class="handle"></div>
+             </div>
+          </label>
+        </div>
+      </ion-footer-bar>
     </ion-pane>
   </body>
 </html>
