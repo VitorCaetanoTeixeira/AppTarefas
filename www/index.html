@@ -52,17 +52,22 @@
         <div class="list card" >
           <div ng-repeat="item in lista track by $index" ng-hide="onHideCard(item)">
 
-          <div class="item">
+          <div class="item ">
           
            <div class="row">
-              <div  class="col">
+           <div  class="col ">
+                <a class="button button-icon icon ion-compose" ng-click="onCardEdit(item)" ng-hide="showDelete"></a>
+                
                 <button class="button button-small button-assertive " ng-click="onRemoveCard(item)" ng-show="showDelete"><i class="ion-close-round"></i></button>
               </div> 
+            
+              
              <div  class="col-75">
               
                 <h2>{{item.titulo}}</h2>
                 <p>{{item.data}}</p>
               </div>
+
 
               <div  class="col">
 
@@ -72,8 +77,8 @@
             </div>  
           </div>
 
-          <div class="item item-body">
-           
+          <div class="item item-body ">
+            
             <p>
               {{item.texto}}
             </p>
@@ -86,7 +91,7 @@
       <ion-footer-bar align-title="left" class="bar bar-calm">
        
 
-        <h2 class="title">Exibir Tarefas Finalizadas</h1>
+        <h2 class="title">Não exibir Tarefas Finalizadas</h1>
         <div class="buttons" ng-click="doSomething()">
           <label class="toggle">
              <input type="checkbox" ng-model="showCard">

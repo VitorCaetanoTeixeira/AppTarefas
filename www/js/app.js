@@ -36,6 +36,7 @@ app.controller('mainController', function($scope, $ionicPopup){
   $scope.onMarkTask = function(item){
     //console.log("Item id = "+item.id+" Status Tarefa = "+!item.finalizada);
     item.finalizada = !item.finalizada;
+    tarefas.save();
   };
 
   $scope.onHideCard = function(item){
@@ -46,6 +47,7 @@ app.controller('mainController', function($scope, $ionicPopup){
   $scope.onRemoveCard = function(item){
     //console.log("item Deletado = "+ item.id);
     tarefas.remove(item);
+    tarefas.save();
   };
 
   $scope.onShowDelete = function(){
@@ -53,18 +55,22 @@ app.controller('mainController', function($scope, $ionicPopup){
   };
 
   $scope.onCardAdd = function(){
-    var item = {titulo:"Item04",data:"subt",finalizada:false,texto:"This is a Facebook styled Card. The header is created from a Thumbnail List item, the content is from a card-body consisting of an image and paragraph text. The footer consists of tabs, icons aligned left, within the card-footer."};
+    var item = {titulo:"",data:"",finalizada:false,texto:""};
     
 
-    getNewCard(item);
+    getCard(item, true);
   };
 
+  $scope.onCardEdit = function(item){
+    getCard(item, false);
+  }
+
   //metodos locais
-  function getNewCard(item){
+  function getCard(item, novo){
     $scope.data = {};
-    $scope.data.newTitulo = "";
-    $scope.data.newDate = "";
-    $scope.data.newText = "";
+    $scope.data.newTitulo = item.titulo;
+    $scope.data.newDate = item.data;
+    $scope.data.newText = item.texto;
 
 
     $ionicPopup.show({
@@ -84,8 +90,10 @@ app.controller('mainController', function($scope, $ionicPopup){
           item.texto = $scope.data.newText;
           console.log($scope.data.newText);
 
-          tarefas.add(item);
-
+            if(novo){
+              tarefas.add(item);
+           }
+            tarefas.save();
          }},
         {text:"Cancelar"}
         ]
